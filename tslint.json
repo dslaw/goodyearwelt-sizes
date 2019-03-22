@@ -1,0 +1,15 @@
+{
+    "defaultSeverity": "error",
+    "extends": [
+        "tslint-eslint-rules",
+        "tslint:recommended"
+    ],
+    "rules": {
+        "interface-name": [true, "never-prefix"],
+        "max-classes-per-file": [false, 1],
+        "member-ordering": [true, "instance-sandwich"],
+        "no-consecutive-blank-lines": [true, 2],
+        "no-console": [false, "off"],
+        "object-literal-sort-keys": false
+    }
+}

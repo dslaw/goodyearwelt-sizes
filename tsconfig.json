@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "lib": [
+            "ES6"
+        ],
+        "alwaysStrict": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        // Disable globally so that tsc doesn't complain about unexported tests.
+        "noUnusedLocals": false,
+        "noUnusedParameters": true,
+        "pretty": true,
+        "removeComments": false,
+        "sourceMap": false,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "target": "es6"
+    },
+    "include": [
+      "src/**/*.ts",
+      "test/**/*.ts"
+    ]
+}

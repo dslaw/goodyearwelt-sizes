@@ -1,0 +1,15 @@
+{
+  "name": "goodyearwelt-sizes",
+  "version": "0.1.0",
+  "author": "dslaw",
+  "license": "MIT",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/dslaw/goodyearwelt-sizes"
+  },
+  "scripts": {
+    "lint": "tslint --project .",
+    "test": "mocha -r ts-node/register test/*.ts test/**/*.ts",
+    "typecheck": "tsc --noEmit --noUnusedLocals"
+  }
+}
