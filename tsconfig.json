@@ -22,6 +22,7 @@
         "target": "es6"
     },
     "include": [
+      "build.ts",
       "src/**/*.ts",
       "test/**/*.ts"
     ]
