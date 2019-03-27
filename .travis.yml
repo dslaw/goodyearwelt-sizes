@@ -11,3 +11,17 @@ script:
   - "yarn lint"
   - "yarn test"
   - "yarn ts-node build.ts > /dev/null"
+
+before_deploy:
+  # Use output html files from `script`.
+  - "cp -r static build/"
+
+deploy:
+  provider: pages
+  target_branch: gh-pages
+  local_dir: build
+  skip_cleanup: true
+  keep_history: true
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
