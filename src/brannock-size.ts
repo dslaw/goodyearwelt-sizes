@@ -10,6 +10,22 @@ const COMMENT_PATTERN = new RegExp(`(${SIZE_PATTERN.source}\\s*(${WIDTH_PATTERN.
 const WIDTH_ADJECTIVES = new Set([ "NARROW", "WIDE" ]);
 
 
+export function formatSize(size: number, width: string): string {
+  // NB: width adjectives are only expected to occur for the sizing
+  //     thread Brannock sizes - they're not used by the device.
+  const widthUpperCased = width.toUpperCase();
+  if (WIDTH_ADJECTIVES.has(widthUpperCased)) {
+    // Width is a word rather than a Brannock width,
+    // so a space should be inserted between the numeric
+    // size and the width, and be formatted nicely.
+    const [ firstChar, ...rest ] = width.toLowerCase();
+    const capitalized = firstChar.toUpperCase() + rest.join("");
+    return `${size} ${capitalized}`;
+  }
+
+  return `${size}${widthUpperCased}`;
+}
+
 export class BrannockSize {
   public size: number;
   public width: string;
@@ -19,18 +35,8 @@ export class BrannockSize {
     this.width = width.toUpperCase();
   }
 
-  // This gets used by e.g. `lodash.groupBy`.
   public toString(): string {
-    if (WIDTH_ADJECTIVES.has(this.width)) {
-      // Width is a word rather than a Brannock width,
-      // so a space should be inserted between the numeric
-      // size and the width, and be formatted nicely.
-      const [ firstChar, ...rest ] = this.width.toLowerCase();
-      const capitalized = firstChar.toUpperCase() + rest.join("");
-      return `${this.size} ${capitalized}`;
-    }
-
-    return `${this.size}${this.width}`;
+    return formatSize(this.size, this.width);
   }
 
   public static fromString(s: string): BrannockSize {
