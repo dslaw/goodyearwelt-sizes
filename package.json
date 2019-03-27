@@ -11,5 +11,24 @@
     "lint": "tslint --project .",
     "test": "mocha -r ts-node/register test/*.ts test/**/*.ts",
     "typecheck": "tsc --noEmit --noUnusedLocals"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.123",
+    "@types/node-fetch": "^2.1.7",
+    "@types/remove-markdown": "^0.1.1",
+    "handlebars": "^4.1.1",
+    "lodash": "^4.17.11",
+    "node-fetch": "^2.3.0",
+    "remove-markdown": "^0.3.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.4000"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "tslint": "^5.14.0",
+    "tslint-eslint-rules": "^5.4.0"
   }
 }
