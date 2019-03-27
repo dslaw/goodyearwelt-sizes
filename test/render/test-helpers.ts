@@ -50,9 +50,21 @@ describe("Tables page helper", () => {
 
   it("Should make group aggregates", () => {
     const sizeRecords = [
-      { size: 9.5, width: "D", intl: null, mlast: "Alden", sizingText: "9.5D" },
-      { size: 10, width: "D", intl: null, mlast: "Alden", sizingText: "10D" },
-    ] as SizeRecord[];
+      new SizeRecordDisplay({
+        size: 9.5,
+        width: "D",
+        intl: null,
+        mlast: "Alden",
+        sizingText: "9.5D",
+      } as SizeRecord),
+      new SizeRecordDisplay({
+        size: 10,
+        width: "D",
+        intl: null,
+        mlast: "Alden",
+        sizingText: "10D",
+      } as SizeRecord),
+    ];
     const grouping: Grouping<string> = [ "Alden", sizeRecords ];
     const expected = [{
       name: "Alden",

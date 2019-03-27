@@ -4,18 +4,20 @@ import * as _ from "lodash";
 
 import { BrannockSize } from "../brannock-size";
 import { SizeRecord } from "../denormalize";
+import { SizeRecordDisplay } from "./helpers";
 
 
-export type Grouping<T> = [ T, SizeRecord[] ];
+export type Grouping<T> = [ T, SizeRecordDisplay[] ];
 
 
 export function groupBrannockSizes(sizeRecords: SizeRecord[]): Array<Grouping<BrannockSize>> {
-  const grouped = _.groupBy(sizeRecords, "brannockSize");
+  const records = sizeRecords.map((r) => new SizeRecordDisplay(r));
+  const grouped = _.groupBy(records, "brannockSize");
   const paired = _.entries(grouped)
     .map((kv: Grouping<string>): Grouping<BrannockSize> => {
       const [ brannockSizeText, values ] = kv;
       // Sort by secondary key within each group.
-      const sorted: SizeRecord[] = _.sortBy(values, "mlast");
+      const sorted: SizeRecordDisplay[] = _.sortBy(values, "modelLast");
       const brannockSize = BrannockSize.fromString(brannockSizeText);
       return [ brannockSize, sorted ];
     });
@@ -29,14 +31,15 @@ export function groupBrannockSizes(sizeRecords: SizeRecord[]): Array<Grouping<Br
 }
 
 export function groupMlasts(sizeRecords: SizeRecord[]): Array<Grouping<string>> {
-  const grouped = _.groupBy(sizeRecords, "mlast");
+  const records = sizeRecords.map((r) => new SizeRecordDisplay(r));
+  const grouped = _.groupBy(records, "modelLast");
   const paired = _.entries(grouped)
     .map((kv: Grouping<string>): Grouping<string> => {
       const [ mlast, values ] = kv;
       // Sort by secondary key within each group.
-      const sorted: SizeRecord[] = _.sortBy(values, [
-        (record: SizeRecord) => record.brannockSize.size,
-        (record: SizeRecord) => record.brannockSize.width,
+      const sorted: SizeRecordDisplay[] = _.sortBy(values, [
+        (record: SizeRecordDisplay) => record.brannockSize.size,
+        (record: SizeRecordDisplay) => record.brannockSize.width,
       ]);
       return [ mlast, sorted ];
     });
