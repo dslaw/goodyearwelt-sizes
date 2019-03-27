@@ -26,8 +26,8 @@
           <td>{{size}} {{width}}</td>
           <td>{{{intl}}}</td>
           <td>
-            {{! TODO: use `path.join` }}
-            <a href="{{threadUrl}}/{{id}}">{{sizingText}}</a>
+            {{! TODO: ensure `threadUrl` ends with a slash }}
+            <a href="{{threadUrl}}{{id}}">{{sizingText}}</a>
           </td>
         </tr>
       {{/each}}
