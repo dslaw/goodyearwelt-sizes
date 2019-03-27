@@ -1,0 +1,39 @@
+<nav class="navbar">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://github.com/dslaw/goodyearwelt-sizes">
+        <i class="fab fa-github"></i> &nbsp; Source
+      </a>
+      <a class="navbar-item" href="https://reddit.com/r/goodyearwelt">
+        <i class="fab fa-reddit"></i> &nbsp; r/goodyearwelt
+      </a>
+
+      <a role="button" class="navbar-burger" data-target="navbarMenu" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="altNavbarMenu" class="dropdown navbar-menu">
+      <div class="dropdown-menu" role="menu">
+        <div class="dropdown-content">
+          <a class="dropdown-item" href="{{sizes.filename}}">{{sizes.title}}</a>
+          <a class="dropdown-item" href="{{models.filename}}">{{models.title}}</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbarMenu" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable" data-dropdown="true">
+          {{> dropdown sizes }}
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable" data-dropdown="true">
+          {{> dropdown models }}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

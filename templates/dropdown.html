@@ -1,0 +1,11 @@
+<a class="navbar-link" href="{{filename}}">{{title}}</a>
+
+<div class="navbar-dropdown is-scrollable">
+  <a class="navbar-item" href="{{filename}}">All</a>
+  <hr class="navbar-divider">
+  {{#each groups}}
+  <a class="navbar-item" href="{{../filename}}#{{anchor}}">
+    {{name}} &nbsp; <span class="tag is-dark is-rounded">{{count}}</span>
+  </a>
+  {{/each}}
+</div>

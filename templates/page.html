@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Goodyearwelt Sizes</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="static/styles.css">
+</head>
+
+<body>
+  <section class="hero is-default is-bold">
+    <div class="hero-head">
+      {{> nav }}
+    </div>
+
+    <div class="hero-body">
+      <div class="has-text-centered">
+        <h1 class="title is-2">{{ctx.title}}</h1>
+        {{#if ctx.subtitle}}
+        <h2 class="subtitle is-4">
+          {{ctx.subtitle}}
+        </h2>
+        {{/if}}
+      </div>
+
+      <br>
+      <br>
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-8">
+          {{#each ctx.groups}}
+            {{> table .}}
+          {{/each}}
+        </div>
+      </div>
+    </div>
+
+  </section>
+</body>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const burger = document.querySelector('.navbar-burger');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('is-active');
+    const altMenu = document.querySelector('#altNavbarMenu');
+    altMenu.classList.toggle('is-active');
+  });
+});
+</script>
+</html>

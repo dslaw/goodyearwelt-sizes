@@ -1,0 +1,36 @@
+<div class="section has-hidden-link">
+  <h1 class="title is-4 is-section-header">
+    {{name}}
+    <a class="is-hideable" name="{{anchor}}" href="#{{anchor}}">
+      <i class="fas fa-link"></i>
+    </a>
+  </h1>
+
+  <table class="table is-hoverable is-fullwidth">
+    <thead class="has-background-light">
+      <tr>
+        <th scope="col">Brannock</th>
+        <th scope="col">Model &amp; Last</th>
+        <th scope="col">Tag</th>
+        <th scope="col">Convention</th>
+        <th scope="col">Source</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each records}}
+        <tr>
+          <td>{{brannockSize}}</th>
+          <td>{{mlast}}</td>
+          {{! TODO: use same formatting as `BrannockSize` }}
+          <td>{{size}} {{width}}</td>
+          <td>{{{intl}}}</td>
+          <td>
+            {{! TODO: use `path.join` }}
+            <a href="{{threadUrl}}/{{id}}">{{sizingText}}</a>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
