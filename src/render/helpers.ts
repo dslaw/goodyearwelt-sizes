@@ -17,6 +17,24 @@ export function makeAnchor(key: string): string {
   return encodeURIComponent(formatted);
 }
 
+const WIDTH_ADJECTIVES = new Set([ "NARROW", "WIDE" ]);
+
+export function formatSize(size: number, width: string): string {
+  // NB: width adjectives are only expected to occur for the sizing
+  //     thread Brannock sizes - they're not used by the device.
+  const widthUpperCased = width.toUpperCase();
+  if (WIDTH_ADJECTIVES.has(widthUpperCased)) {
+    // Width is a word rather than a Brannock width,
+    // so a space should be inserted between the numeric
+    // size and the width, and be formatted nicely.
+    const [ firstChar, ...rest ] = width.toLowerCase();
+    const capitalized = firstChar.toUpperCase() + rest.join("");
+    return `${size} ${capitalized}`;
+  }
+
+  return `${size}${widthUpperCased}`;
+}
+
 export class TablesPage<T> {
   private fileExt: string = ".html";
   public name: string;
@@ -48,5 +66,31 @@ export class TablesPage<T> {
       count: values.length,
       records: values,
     }));
+  }
+}
+
+// https://github.com/Microsoft/TypeScript/issues/340#issuecomment-184964440
+// tslint:disable-next-line
+export interface SizeRecordDisplay extends SizeRecord { }
+export class SizeRecordDisplay {
+  constructor(sizeRecord: SizeRecord) {
+    Object.assign(this, sizeRecord);
+  }
+
+  public get modelLast(): string {
+    const lowered = this.mlast.toLowerCase();
+    // Don't uppercase the possessive "s", e.g. "Nick's".
+    const firstCharPattern = new RegExp(/\b(?<!')([a-z])/, "g");
+    return lowered.replace(firstCharPattern, (group) => group.toUpperCase());
+  }
+
+  public get commentUrl(): string {
+    const trailingSlashesPattern = /\/+$/;
+    const threadUrl = this.threadUrl.replace(trailingSlashesPattern, "");
+    return `${threadUrl}/${this.id}`;
+  }
+
+  public get tagSize(): string {
+    return formatSize(this.size, this.width || "");
   }
 }

@@ -1,23 +1,7 @@
 import { assert } from "chai";
 
-import { BrannockSize, formatSize } from "../src/brannock-size";
+import { BrannockSize } from "../src/brannock-size";
 
-
-describe("Cast a full size to a string", () => {
-  const sizeExpected = [
-    { str: "8D", size: 8, width: "D" },
-    { str: "8.5D", size: 8.5, width: "D" },
-    { str: "10D", size: 10, width: "D" },
-    { str: "10.5D", size: 10.5, width: "D" },
-    { str: "8D", size: 8, width: "d" },
-  ];
-  sizeExpected.forEach((obj: any) => {
-    it(`Should format ${obj.size} ${obj.width}`, () => {
-      const out = formatSize(obj.size, obj.width);
-      assert.strictEqual(out, obj.str);
-    });
-  });
-});
 
 describe("Modeled Brannock size", () => {
   it("Should instantiate from string values", () => {

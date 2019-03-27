@@ -21,13 +21,11 @@
       {{#each records}}
         <tr>
           <td>{{brannockSize}}</th>
-          <td>{{mlast}}</td>
-          {{! TODO: use same formatting as `BrannockSize` }}
-          <td>{{size}} {{width}}</td>
+          <td>{{modelLast}}</td>
+          <td>{{tagSize}}</td>
           <td>{{{intl}}}</td>
           <td>
-            {{! TODO: ensure `threadUrl` ends with a slash }}
-            <a href="{{threadUrl}}{{id}}">{{sizingText}}</a>
+            <a href="{{commentUrl}}">{{sizingText}}</a>
           </td>
         </tr>
       {{/each}}

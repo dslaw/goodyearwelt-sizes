@@ -1,30 +1,13 @@
 // Brannock size from a sizing thread.
 
 import { Comment } from "./reddit";
+import { formatSize } from "./render";
 
 
 const SIZE_PATTERN = /([0-9]{1,2}(\.5)?)/i;
 const WIDTH_PATTERN = /Narrow|Wide|[A-Z]{1,3}/i;
 const COMMENT_PATTERN = new RegExp(`(${SIZE_PATTERN.source}\\s*(${WIDTH_PATTERN.source}))`, "i");
 
-const WIDTH_ADJECTIVES = new Set([ "NARROW", "WIDE" ]);
-
-
-export function formatSize(size: number, width: string): string {
-  // NB: width adjectives are only expected to occur for the sizing
-  //     thread Brannock sizes - they're not used by the device.
-  const widthUpperCased = width.toUpperCase();
-  if (WIDTH_ADJECTIVES.has(widthUpperCased)) {
-    // Width is a word rather than a Brannock width,
-    // so a space should be inserted between the numeric
-    // size and the width, and be formatted nicely.
-    const [ firstChar, ...rest ] = width.toLowerCase();
-    const capitalized = firstChar.toUpperCase() + rest.join("");
-    return `${size} ${capitalized}`;
-  }
-
-  return `${size}${widthUpperCased}`;
-}
 
 export class BrannockSize {
   public size: number;
