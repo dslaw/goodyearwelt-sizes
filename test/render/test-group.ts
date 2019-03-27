@@ -1,11 +1,11 @@
 import { assert } from "chai";
 
 import { BrannockSize } from "../../src/brannock-size";
-import { SizeRecordWithMetadata } from "../../src/denormalize";
+import { SizeRecord } from "../../src/denormalize";
 import { groupBrannockSizes, groupMlasts } from "../../src/render/group";
 
 
-function sizeRecords(): SizeRecordWithMetadata[] {
+function sizeRecords(): SizeRecord[] {
   const base = {
     id: "id",
     sizingText: "sizingTest",

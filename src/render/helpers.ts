@@ -1,6 +1,6 @@
 // Model/view helper(s).
 
-import { SizeRecordWithMetadata } from "../denormalize";
+import { SizeRecord } from "../denormalize";
 import { Grouping } from "./group";
 
 
@@ -8,7 +8,7 @@ export interface GroupDisplay {
   name: string;
   anchor: string;
   count: number;
-  records: SizeRecordWithMetadata[];
+  records: SizeRecord[];
 }
 
 

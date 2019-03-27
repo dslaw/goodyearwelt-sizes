@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 import * as _ from "lodash";
 
 import { BrannockSize } from "./brannock-size";
-import { cleanManufacturerLast, extractSizing, getSizingPairs } from "./extract";
+import { cleanManufacturerLast, extractSizing, getSizingPairs, TagSize } from "./extract";
 import { Comment, Listing } from "./reddit";
 
 
@@ -13,31 +13,27 @@ export interface ThreadComments {
   comments: Comment[];
 }
 
-// A top level comment by the thread author with just a Brannock size as the
-// body.
+// A top level comment by the thread author with just a Brannock
+// size as the body.
 export interface SizeThread {
   id: string;
   brannockSize: BrannockSize;
   replies: Comment[];
 }
 
-// Respondent sizing information.
-export interface SizeRecord {
-  sizingText: string;
-  mlast: string;
-  size: number;
-  width: string | null;
-  intl: string | null;
-}
-
-// Respondent sizing information with metadata attached.
-export interface SizeRecordWithMetadata extends SizeRecord {
+// Responding sizing information - a fully denormalized
+// tagged size, including the Brannock size of the sizing
+// thread it belongs to and other ancestor metadata.
+export interface SizeRecord extends TagSize {
   id: string;
+  mlast: string;
   parentId: string;
   brannockSize: BrannockSize;
   threadId: string;
   threadUrl: string;
 }
+
+type PartialSizeRecord = Pick<SizeRecord, "sizingText" | "size" | "width" | "intl" | "mlast">;
 
 
 export async function readThread(filename: string): Promise<ThreadComments> {
@@ -69,29 +65,28 @@ export function getSizingThreads(op: Comment, comments: Comment[]): SizeThread[]
   return sizingThreads;
 }
 
-export function extractSizeRecords(md: string): SizeRecord[] {
+export function extractSizeRecords(md: string): PartialSizeRecord[] {
   const sizingPairs = getSizingPairs(md);
   const sizeRecords = sizingPairs
     .map(({ shoeLast, sizingText }) => {
-      const sizeInfo = extractSizing(sizingText);
+      const tagSize = extractSizing(sizingText);
       const mlast = cleanManufacturerLast(shoeLast);
-      if (mlast === null || sizeInfo === null) {
+      if (mlast === null || tagSize === null) {
         return null;
       }
-      return { ...sizeInfo, mlast, sizingText };
+      return { ...tagSize, mlast };
     })
     .filter((sizeRecord): sizeRecord is SizeRecord => sizeRecord !== null);
   return sizeRecords;
 }
 
-export function fromSizingThread(sizingThread: SizeThread, threadId: string, threadUrl: string):
-  SizeRecordWithMetadata[] {
+export function fromSizingThread(sizingThread: SizeThread, threadId: string, threadUrl: string): SizeRecord[] {
   // NB: Only the first level of replies to the size thread are
   //     looked at, as that is how respondents are meant to reply
   const sizeResponses = sizingThread.replies;
   const sizeRecords = _.flatMap(sizeResponses, (sizeResponse) => {
     // Add post metadata for denormalization.
-    const addMetadata = (sizeRecord: SizeRecord): SizeRecordWithMetadata => ({
+    const addMetadata = (sizeRecord: PartialSizeRecord): SizeRecord => ({
       ...sizeRecord,
       id: sizeResponse.id,
       // NB: Always refers to the size thread id, not the actual
@@ -115,7 +110,7 @@ export function fromSizingThread(sizingThread: SizeThread, threadId: string, thr
   return sizeRecords;
 }
 
-export function extract(op: Comment, comments: Comment[]): SizeRecordWithMetadata[] {
+export function extract(op: Comment, comments: Comment[]): SizeRecord[] {
   const sizeThreads = getSizingThreads(op, comments);
   const allSizeRecords = _.flatMap(sizeThreads,
     (sizeThread) => fromSizingThread(sizeThread, op.id, op.url));

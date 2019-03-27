@@ -13,7 +13,7 @@ import * as _ from "lodash";
 import * as path from "path";
 
 import { BrannockSize } from "./src/brannock-size";
-import { extract, readThread, SizeRecordWithMetadata } from "./src/denormalize";
+import { extract, readThread, SizeRecord } from "./src/denormalize";
 import { downloadAll } from "./src/download";
 import { groupBrannockSizes, groupMlasts, loadTemplates, TablesPage } from "./src/render";
 
@@ -55,7 +55,7 @@ async function setupDirs(directories: string[]): Promise<void> {
   });
 }
 
-async function readAll(dataDir: string, pattern: string): Promise<SizeRecordWithMetadata[]> {
+async function readAll(dataDir: string, pattern: string): Promise<SizeRecord[]> {
   const filenames = await fs.readdir(dataDir);
   const sizeRecordsByThread = await Promise.all(
     filenames
@@ -73,12 +73,12 @@ async function readAll(dataDir: string, pattern: string): Promise<SizeRecordWith
   return sizeRecords;
 }
 
-async function writeRecords(sizeRecords: SizeRecordWithMetadata[], outputFilename: string): Promise<void> {
+async function writeRecords(sizeRecords: SizeRecord[], outputFilename: string): Promise<void> {
   const data = JSON.stringify(sizeRecords, null, 2);
   await fs.writeFile(outputFilename, data, "utf8");
 }
 
-async function makePages(sizeRecords: SizeRecordWithMetadata[]): Promise<Page[]> {
+async function makePages(sizeRecords: SizeRecord[]): Promise<Page[]> {
   const templates = await loadTemplates("templates");
 
   const sizeTablesPage = new TablesPage<BrannockSize>(

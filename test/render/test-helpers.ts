@@ -1,6 +1,6 @@
 import { assert } from "chai";
 
-import { SizeRecordWithMetadata } from "../../src/denormalize";
+import { SizeRecord } from "../../src/denormalize";
 import { Grouping } from "../../src/render";
 import { makeAnchor, TablesPage } from "../../src/render/helpers";
 
@@ -30,7 +30,7 @@ describe("Tables page helper", () => {
     const sizeRecords = [
       { size: 9.5, width: "D", intl: null, mlast: "Alden", sizingText: "9.5D" },
       { size: 10, width: "D", intl: null, mlast: "Alden", sizingText: "10D" },
-    ] as SizeRecordWithMetadata[];
+    ] as SizeRecord[];
     const grouping: Grouping<string> = [ "Alden", sizeRecords ];
     const expected = [{
       name: "Alden",

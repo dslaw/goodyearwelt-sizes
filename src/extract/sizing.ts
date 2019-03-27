@@ -3,7 +3,11 @@
 import { postMatch, precedesMatch, SizeParts } from "./match";
 
 
-export interface SizeInfo {
+// Respondent sizing information - the tagged size extracted
+// from text.
+export interface TagSize {
+  id?: string;
+  sizingText: string;
   size: number;
   width: string | null;
   intl: string | null;
@@ -86,7 +90,7 @@ export function matchSizing(post: SizeParts, pre: SizeParts): SizeParts | null {
   return sizing;
 }
 
-export function extractSizing(text: string): SizeInfo | null {
+export function extractSizing(text: string): TagSize | null {
   const { post, pre } = getMatches(text);
   const sizeParts = matchSizing(post, pre);
 
@@ -98,6 +102,7 @@ export function extractSizing(text: string): SizeInfo | null {
     size: parseFloat(sizeParts.size || ""),
     width: sizeParts.width,
     intl: reconcileIntl(sizeParts),
+    sizingText: text,
   };
   return sizeInfo;
 }
