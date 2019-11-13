@@ -5,6 +5,7 @@ const patterns = {
   parens: /\(.*\)/g,
   unknownLast: /unknown last\s*$/i,
   trailingLast: /last\s*$/i,
+  unicodeBullet: /\u2022/g,
   spaces: /\s+/g,
 };
 const patternReplacementsOrdered = [
@@ -12,6 +13,7 @@ const patternReplacementsOrdered = [
   { pattern: patterns.parens, repl: "" },
   { pattern: patterns.unknownLast, repl: "" },
   { pattern: patterns.trailingLast, repl: "" },
+  { pattern: patterns.unicodeBullet, repl: ""},
   { pattern: patterns.spaces, repl: " " },
 ];
 

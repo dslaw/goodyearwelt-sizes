@@ -1,6 +1,6 @@
 import { assert } from "chai";
 
-import { cleanManufacturerLast } from "../../src/extract/mlast";
+import { cleanManufacturerLast } from "../../src/clean/mlast";
 
 
 describe("Clean manufacturer last", () => {
@@ -48,6 +48,13 @@ describe("Clean manufacturer last", () => {
 
   it("Should strip trailing whitespace", () => {
     const mlast = "Viberg 2030 ";
+    const expected = "Viberg 2030";
+    const out = cleanManufacturerLast(mlast);
+    assert.deepStrictEqual(out, expected);
+  });
+
+  it("Should remove unicode bullet", () => {
+    const mlast = "• Viberg 2030";
     const expected = "Viberg 2030";
     const out = cleanManufacturerLast(mlast);
     assert.deepStrictEqual(out, expected);

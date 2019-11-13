@@ -36,13 +36,6 @@ export function splitSizingPair(line: string): SizingPair | null {
   }
 
   const [ shoeLast, sizingText ] = parts;
-
-  // Check if line is for notes, rather than specific size information.
-  if (shoeLast.toLowerCase().includes("note")) {
-    console.debug(`Encountered 'note' in manufacturer last "${line}"`);
-    return null;
-  }
-
   return { shoeLast, sizingText };
 }
 

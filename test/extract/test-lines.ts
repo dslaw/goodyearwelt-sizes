@@ -85,18 +85,6 @@ describe("Split sizing pair", () => {
     assert.strictEqual(pair, null);
   });
 
-  it("Should return null for notes", () => {
-    const line = "Notes: notes about things.";
-    const sizingPair = splitSizingPair(line);
-    assert.strictEqual(sizingPair, null);
-  });
-
-  it("Should return null for unexpected notes", () => {
-    const line = "Brannock/Notes: notes about things.";
-    const sizingPair = splitSizingPair(line);
-    assert.strictEqual(sizingPair, null);
-  });
-
   // Splits.
   const expected = {
     shoeLast: "Manufacturer Last",
@@ -131,6 +119,7 @@ describe("Get size pairs from comment body", () => {
     ].join("\n");
 
     const expected = [
+      { shoeLast: "Note", sizingText: "This is a note with additional information." },
       { shoeLast: "Red Wing", sizingText: "10D" },
       { shoeLast: "Alden", sizingText: "9.5D" },
       { shoeLast: "Another", sizingText: "10D" },

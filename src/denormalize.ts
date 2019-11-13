@@ -4,7 +4,8 @@ import { promises as fs } from "fs";
 import * as _ from "lodash";
 
 import { BrannockSize } from "./brannock-size";
-import { cleanManufacturerLast, extractSizing, getSizingPairs, TagSize } from "./extract";
+import { cleanManufacturerLast, hasValidShoeLast } from "./clean";
+import { extractSizing, getSizingPairs, TagSize } from "./extract";
 import { Comment, Listing } from "./reddit";
 
 
@@ -76,7 +77,8 @@ export function extractSizeRecords(md: string): PartialSizeRecord[] {
       }
       return { ...tagSize, mlast };
     })
-    .filter((sizeRecord): sizeRecord is SizeRecord => sizeRecord !== null);
+    .filter((sizeRecord): sizeRecord is SizeRecord => sizeRecord !== null)
+    .filter(({ mlast }) => hasValidShoeLast(mlast));
   return sizeRecords;
 }
 
