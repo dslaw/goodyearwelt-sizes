@@ -10,6 +10,7 @@ const THREADS = [
   { year: 2017, path: "comments/5ibtzh/manufacturer_last_sizing_thread" },
   { year: 2018, path: "comments/7t1whc/manufacturer_last_sizing_thread_2018" },
   { year: 2019, path: "comments/daldj0/manufacturer_last_sizing_thread_2019" },
+  { year: 2021, path: "comments/kyk4qy/manufacturer_last_sizing_thread_2021" },
 ];
 
 
