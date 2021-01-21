@@ -4,8 +4,8 @@
   "author": "dslaw",
   "license": "MIT",
   "repository": {
-      "type": "git",
-      "url": "https://github.com/dslaw/goodyearwelt-sizes"
+    "type": "git",
+    "url": "https://github.com/dslaw/goodyearwelt-sizes"
   },
   "scripts": {
     "lint": "tslint --project .",
@@ -16,7 +16,7 @@
     "@types/lodash": "^4.14.123",
     "@types/node-fetch": "^2.1.7",
     "@types/remove-markdown": "^0.1.1",
-    "handlebars": "^4.3.0",
+    "handlebars": "^4.7.6",
     "lodash": "^4.17.12",
     "node-fetch": "^2.3.0",
     "remove-markdown": "^0.3.0",

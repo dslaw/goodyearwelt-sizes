@@ -98,11 +98,27 @@ async function makePages(sizeRecords: SizeRecord[]): Promise<Page[]> {
     ctx: sizeTablesPage,
     sizes: sizeTablesPage,
     models: modelTablesPage,
+  }, {
+    allowedProtoProperties: {
+      modelLast: true,
+      commentUrl: true,
+      tagSize: true,
+      filename: true,
+      groups: true,
+    },
   });
   const modelPage = templates.page({
     ctx: modelTablesPage,
     sizes: sizeTablesPage,
     models: modelTablesPage,
+  }, {
+    allowedProtoProperties: {
+      modelLast: true,
+      commentUrl: true,
+      tagSize: true,
+      filename: true,
+      groups: true,
+    },
   });
 
   const pages = [

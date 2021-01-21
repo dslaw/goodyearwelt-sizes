@@ -4,7 +4,7 @@ import * as path from "path";
 
 
 interface Templates {
-  [name: string]: (param: any) => string;
+  [name: string]: (context: any, options: any) => string;
 }
 
 
